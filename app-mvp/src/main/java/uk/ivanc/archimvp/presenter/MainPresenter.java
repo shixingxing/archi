@@ -4,7 +4,7 @@ import android.util.Log;
 
 import java.util.List;
 
-import retrofit.HttpException;
+import retrofit2.HttpException;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
