@@ -19,6 +19,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import uk.ivanc.archimvvm.ArchiApplication;
 import uk.ivanc.archimvvm.R;
+import uk.ivanc.archimvvm.model.EzloanService;
 import uk.ivanc.archimvvm.model.GithubService;
 import uk.ivanc.archimvvm.model.Repository;
 
@@ -135,6 +136,31 @@ public class MainViewModel implements ViewModel {
                     public void onNext(List<Repository> repositories) {
                         Log.i(TAG, "Repos loaded " + repositories);
                         MainViewModel.this.repositories = repositories;
+                    }
+                });
+    }
+
+    private void login() {
+        ArchiApplication application = ArchiApplication.get(context);
+        if (subscription != null && !subscription.isUnsubscribed()) subscription.unsubscribe();
+        EzloanService ezloanService = application.getEzloanService();
+        subscription = ezloanService.login("18521705318", "hello0", "ea89190fe3700a72eb2fd6ef428f393e", "2")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(application.defaultSubscribeScheduler())
+                .subscribe(new Subscriber<Object>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.i(TAG, "Repos onCompleted ");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "Error loading GitHub repos " + e);
+                    }
+
+                    @Override
+                    public void onNext(Object o) {
+                        Log.i(TAG, "Repos loaded " + o.toString());
                     }
                 });
     }
