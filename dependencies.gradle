@@ -1,5 +1,5 @@
 ext {
-    supportLibraryVersion = '23.1.1'
+    supportLibraryVersion = '23.2.0'
     retrofitVersion = '2.0.0-beta4'
 
     dependencies = [
