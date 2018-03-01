@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -166,7 +165,7 @@ public class MainViewModel implements ViewModel {
     }
 
     private static boolean isHttp404(Throwable error) {
-        return error instanceof HttpException && ((HttpException) error).code() == 404;
+        return error instanceof retrofit2.HttpException && ((retrofit2.HttpException) error).code() == 404;
     }
 
     public interface DataListener {
